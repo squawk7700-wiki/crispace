@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CriSpace — CRISPR Technologies for Precision Editing</title>
+  <meta name="description" content="CriSpace is a CRISPR technologies company delivering precision gene editing platforms, discovery services, and GMP solutions for next‑gen therapeutics." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231a2b6b'/%3E%3Cpath d='M21 18h22v6H21zM16 28h32v6H16zM21 38h22v6H21z' fill='%23a2c9ff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1023;          /* deep space */
+      --bg-2:#0f1533;        /* panel */
+      --ink:#e7ecff;         /* primary text */
+      --muted:#b7c3ff;       /* secondary text */
+      --brand:#5aa2ff;       /* brand blue */
+      --brand-2:#73f0c2;     /* mint accent */
+      --line:#26305f;        /* hairline */
+      --card:#101735;        /* card */
+      --danger:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink); background:radial-gradient(1200px 600px at 80% -10%, rgba(115,240,194,.12), transparent 60%), radial-gradient(1200px 600px at 20% -10%, rgba(90,162,255,.12), transparent 60%), var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    .container{width:100%; max-width:1200px; padding:0 20px; margin:0 auto}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.9rem 1.1rem; border-radius:14px; border:1px solid transparent; background:linear-gradient(180deg, var(--brand), #3e7de0); color:white; font-weight:600; box-shadow:0 10px 24px rgba(90,162,255,.25); transition:.25s}
+    .btn:hover{transform:translateY(-1px); box-shadow:0 14px 30px rgba(90,162,255,.35)}
+    .btn.alt{background:transparent; border-color:var(--line); color:var(--ink)}
+    .tag{display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .6rem; border:1px solid var(--line); border-radius:999px; color:var(--muted); font-size:.8rem}
+
+    /* Header */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(10px); background:linear-gradient(180deg, rgba(11,16,35,.85), rgba(11,16,35,.55)); border-bottom:1px solid rgba(255,255,255,.04)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:.75rem}
+    .logo{width:36px; height:36px; border-radius:10px; display:grid; place-items:center; background:conic-gradient(from 180deg at 50% 50%, var(--brand), var(--brand-2)); box-shadow:0 8px 22px rgba(90,162,255,.35)}
+    .brand strong{font-weight:800; letter-spacing:.3px}
+    nav ul{display:flex; gap:1.2rem; list-style:none; padding:0; margin:0}
+    nav a{color:var(--muted); font-weight:500}
+    nav a:hover{color:var(--ink)}
+    .menu-btn{display:none}
+
+    /* Hero */
+    .hero{position:relative; padding:84px 0 54px}
+    .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:38px}
+    h1{font-size:clamp(2rem, 2.2rem + 2vw, 3.6rem); line-height:1.05; margin:0 0 10px}
+    .lead{font-size:1.1rem; color:var(--muted); max-width:58ch}
+    .hero-cta{display:flex; gap:.75rem; margin-top:22px; flex-wrap:wrap}
+    .metrics{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:32px}
+    .metric{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--line); border-radius:16px; padding:16px}
+    .metric b{font-size:1.6rem}
+
+    .scene{position:relative; height:420px; border-radius:20px; border:1px solid var(--line); background:linear-gradient(180deg, rgba(16,23,53,.8), rgba(16,23,53,.6)), radial-gradient(400px 200px at 70% 0%, rgba(115,240,194,.18), transparent 60%), radial-gradient(500px 200px at 20% 10%, rgba(90,162,255,.18), transparent 60%); overflow:hidden}
+    .helix{position:absolute; inset:0; background:repeating-linear-gradient(90deg, transparent 0 18px, rgba(255,255,255,.04) 18px 19px)}
+    .node{position:absolute; width:10px; height:10px; border-radius:50%; background:var(--brand-2); box-shadow:0 0 0 6px rgba(115,240,194,.12)}
+    .node:nth-child(2){background:var(--brand); box-shadow:0 0 0 6px rgba(90,162,255,.15)}
+
+    /* Sections */
+    section{padding:70px 0; border-top:1px solid rgba(255,255,255,.04)}
+    .eyebrow{letter-spacing:.18em; text-transform:uppercase; font-size:.78rem; color:var(--muted)}
+    h2{font-size:clamp(1.6rem, 1.3rem + 1.2vw, 2.2rem); margin:.2rem 0 1rem}
+    .grid-3{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid var(--line); border-radius:20px; padding:22px}
+    .card h3{margin:.2rem 0 .6rem}
+    .card p{color:var(--muted)}
+
+    /* Tabs */
+    .tabs{display:flex; gap:8px; flex-wrap:wrap; margin:16px 0 24px}
+    .tab{padding:.6rem .8rem; border-radius:999px; border:1px solid var(--line); color:var(--muted); cursor:pointer}
+    .tab.active{border-color:transparent; background:linear-gradient(180deg, var(--brand), #3e7de0); color:white}
+
+    /* Case studies */
+    .case{display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:center}
+    .case .img{height:260px; border-radius:18px; background:linear-gradient(180deg, rgba(90,162,255,.2), rgba(115,240,194,.2)); border:1px solid var(--line); position:relative; overflow:hidden}
+    .badge{display:inline-block; font-size:.75rem; padding:.3rem .55rem; border:1px solid var(--line); border-radius:8px; color:var(--muted)}
+
+    /* Contact */
+    .contact{display:grid; grid-template-columns:1.2fr .8fr; gap:24px}
+    .field{display:grid; gap:8px}
+    .field input,.field textarea{background:var(--bg-2); border:1px solid var(--line); border-radius:12px; padding:12px 14px; color:var(--ink); outline:none}
+    .field input:focus,.field textarea:focus{border-color:var(--brand)}
+    .policy{font-size:.8rem; color:var(--muted)}
+
+    /* Footer */
+    footer{padding:40px 0; border-top:1px solid rgba(255,255,255,.05); color:var(--muted)}
+    .footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:18px}
+    .foot-logo{display:flex; align-items:center; gap:.75rem}
+    .social a{display:inline-flex; width:36px; height:36px; border:1px solid var(--line); border-radius:10px; align-items:center; justify-content:center; margin-right:8px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{grid-template-columns:1fr}
+      .case{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 720px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex; align-items:center; gap:.5rem; padding:.6rem .8rem; border:1px solid var(--line); border-radius:10px; color:var(--ink); background:transparent}
+      .mobile-nav{display:none; position:absolute; left:0; right:0; top:60px; background:var(--bg-2); border-bottom:1px solid var(--line)}
+      .mobile-nav a{display:block; padding:14px 20px; border-top:1px solid rgba(255,255,255,.05); color:var(--muted)}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- DNA mark -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CriSpace logo">
+            <path d="M6 7c4 0 6 4 12 4" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+            <path d="M6 17c4 0 6-4 12-4" stroke="white" stroke-width="2" stroke-linecap="round" opacity=".9"/>
+            <circle cx="7" cy="7" r="1" fill="white"/>
+            <circle cx="17" cy="17" r="1" fill="white"/>
+          </svg>
+        </div>
+        <strong>CriSpace</strong>
+        <span class="tag" title="Clinical & Research Ready">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          CRISPR Technologies
+        </span>
+      </div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#solutions">Solutions</a></li>
+          <li><a href="#platform">Platform</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#safety">Safety</a></li>
+          <li><a href="#cases">Case Studies</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mobileNav">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Menu
+      </button>
+    </div>
+    <div id="mobileNav" class="mobile-nav" role="dialog" aria-label="Mobile Navigation">
+      <a href="#solutions">Solutions</a>
+      <a href="#platform">Platform</a>
+      <a href="#research">Research</a>
+      <a href="#safety">Safety</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Next‑Gen Gene Editing</p>
+        <h1>Building the future of precision therapy with CRISPR</h1>
+        <p class="lead">CriSpace delivers a full‑stack CRISPR platform—from guide design and off‑target analytics to GMP manufacturing—helping biotech teams accelerate discovery and bring safer gene therapies to patients.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#contact">Request a demo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn alt" href="#platform">Explore platform</a>
+        </div>
+        <div class="metrics" aria-label="Key metrics">
+          <div class="metric"><span class="badge">Validation</span><br><b>99.2%</b><br><small class="muted">Edit accuracy†</small></div>
+          <div class="metric"><span class="badge">Scale</span><br><b>10^6</b><br><small class="muted">guides screened</small></div>
+          <div class="metric"><span class="badge">Speed</span><br><b>2×</b><br><small class="muted">faster to IND</small></div>
+        </div>
+        <p style="color:var(--muted); font-size:.78rem; margin-top:8px">†Internal benchmarking on reference cell lines. Results vary by use case.</p>
+      </div>
+      <div>
+        <div class="scene" aria-hidden="true">
+          <div class="helix"></div>
+          <div class="node" style="top:24%; left:18%"></div>
+          <div class="node" style="top:64%; left:72%"></div>
+          <svg viewBox="0 0 600 420" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#73f0c2" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#5aa2ff" stop-opacity=".9"/>
+              </linearGradient>
+            </defs>
+            <!-- stylized double helix -->
+            <path d="M80,40 C200,120 240,300 360,380" stroke="url(#g1)" stroke-width="6" fill="none"/>
+            <path d="M80,380 C200,300 240,120 360,40" stroke="url(#g1)" stroke-width="6" fill="none" opacity=".7"/>
+            <g opacity=".6">
+              <line x1="120" y1="120" x2="200" y2="160" stroke="#9bc9ff" stroke-width="2"/>
+              <line x1="200" y1="160" x2="280" y2="200" stroke="#9bc9ff" stroke-width="2"/>
+              <line x1="160" y1="280" x2="240" y2="240" stroke="#9bc9ff" stroke-width="2"/>
+              <line x1="240" y1="240" x2="320" y2="200" stroke="#9bc9ff" stroke-width="2"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions -->
+  <section id="solutions">
+    <div class="container">
+      <p class="eyebrow">Solutions</p>
+      <h2>From discovery to delivery</h2>
+      <div class="grid-3" role="list">
+        <article class="card" role="listitem">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-right:.4rem; vertical-align:-3px"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/></svg>
+            Guide Design & Screening
+          </h3>
+          <p>Machine‑learning guided design with pooled and arrayed libraries. Evaluate on‑target efficiency across diverse cell types.</p>
+        </article>
+        <article class="card" role="listitem">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-right:.4rem; vertical-align:-3px"><path d="M3 12h18M12 3v18" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+            Off‑Target Analytics
+          </h3>
+          <p>Whole‑genome profiling and orthogonal validation to quantify specificity and minimize risk before entering the clinic.</p>
+        </article>
+        <article class="card" role="listitem">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="margin-right:.4rem; vertical-align:-3px"><rect x="3" y="4" width="18" height="16" rx="3" ry="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M7 8h10" stroke="currentColor" stroke-width="2"/></svg>
+            GMP Editing Services
+          </h3>
+          <p>End‑to‑end support for preclinical and GMP manufacturing with QC, release testing, and regulatory documentation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform -->
+  <section id="platform">
+    <div class="container">
+      <p class="eyebrow">Platform</p>
+      <h2>A unified CRISPR operating system</h2>
+      <div class="tabs" role="tablist" aria-label="Platform tabs">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab1" id="t1">Design</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab2" id="t2">Edit</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab3" id="t3">Validate</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab4" id="t4">Scale</button>
+      </div>
+      <div id="tab1" class="card" role="tabpanel" aria-labelledby="t1">
+        <h3>AI‑guided gRNA design</h3>
+        <p>Train on your assay data to continuously improve on‑target efficiency and reduce off‑target risk. Batch import targets, visualize PAM distributions, and export plates in one click.</p>
+      </div>
+      <div id="tab2" class="card" role="tabpanel" aria-labelledby="t2" hidden>
+        <h3>Smart editing workflows</h3>
+        <p>Template and NHEJ editing with automated reagent calculations, multi‑omics QC, and version‑controlled protocols for reproducibility.</p>
+      </div>
+      <div id="tab3" class="card" role="tabpanel" aria-labelledby="t3" hidden>
+        <h3>Orthogonal validation</h3>
+        <p>Combine GUIDE‑seq, DISCOVER‑seq, and amplicon NGS in a single dashboard. Generate audit‑ready reports for partner review.</p>
+      </div>
+      <div id="tab4" class="card" role="tabpanel" aria-labelledby="t4" hidden>
+        <h3>Industrial scaling</h3>
+        <p>Automated plate mapping, LIMS integration, and robotics‑ready APIs to scale from 96‑well to 10k+ reactions seamlessly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research">
+    <div class="container">
+      <p class="eyebrow">Research</p>
+      <h2>Peer‑aligned science, open collaboration</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Publications</h3>
+          <p>We collaborate with leading labs to co‑author studies on specificity modeling, base editing, and HDR kinetics. Bibliography on request.</p>
+        </div>
+        <div class="card">
+          <h3>Data Partnerships</h3>
+          <p>Secure data clean rooms support privacy‑preserving model training with multi‑institutional cohorts.</p>
+        </div>
+        <div class="card">
+          <h3>SDK & APIs</h3>
+          <p>Programmatic access to design algorithms, scoring functions, and plate builders for custom pipelines.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section id="safety">
+    <div class="container">
+      <p class="eyebrow">Safety</p>
+      <h2>Safety is engineered in</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Biosecurity & Compliance</h3>
+          <p>SOPs aligned to ISO 13485 & 27001, role‑based access, and audit trails. Threat modeling for assay request intake.</p>
+        </div>
+        <div class="card">
+          <h3>Off‑Target Mitigation</h3>
+          <p>Predictive modeling, PAM restriction strategies, and empiric WGS profiling reduce unintended edits.</p>
+        </div>
+        <div class="card">
+          <h3>Ethical Review</h3>
+          <p>Independent Ethics Advisory Board reviews dual‑use and first‑in‑human proposals to ensure responsible progress.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section id="cases">
+    <div class="container">
+      <p class="eyebrow">Case Studies</p>
+      <h2>Impact across modalities</h2>
+      <div class="case">
+        <div class="img" aria-hidden="true">
+          <svg viewBox="0 0 600 260" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <linearGradient id="cs" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#5aa2ff"/>
+                <stop offset="100%" stop-color="#73f0c2"/>
+              </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="600" height="260" fill="url(#cs)" opacity=".18"/>
+            <polyline points="0,220 80,180 140,190 210,150 280,170 340,120 420,140 500,90 600,110" fill="none" stroke="#9bc9ff" stroke-width="3"/>
+          </svg>
+        </div>
+        <div>
+          <span class="badge">Ex Vivo Gene Editing</span>
+          <h3>Editing hematopoietic stem cells (HSCs)</h3>
+          <p class="lead" style="font-size:1rem">Optimized gRNA design and WGS validation enabled a 45% improvement in on‑target editing with no detectable high‑risk off‑targets in primary HSCs, paving the way for IND‑enabling studies.</p>
+          <a class="btn alt" href="#contact">Discuss a similar study →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h2>Request a demo or partnership call</h2>
+      <div class="contact">
+        <form id="contactForm" class="card" novalidate>
+          <div class="field">
+            <label for="name">Full name</label>
+            <input id="name" name="name" autocomplete="name" required placeholder="Ada Lovelace" />
+          </div>
+          <div class="field">
+            <label for="email">Work email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" />
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input id="company" name="company" required placeholder="Acme Biotech" />
+          </div>
+          <div class="field">
+            <label for="message">Project details</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us about your CRISPR project and timelines..."></textarea>
+          </div>
+          <div class="field" style="align-items:center; justify-content:space-between; grid-auto-flow:column">
+            <label class="policy"><input type="checkbox" id="consent" required /> I agree to the privacy policy.</label>
+            <button class="btn" type="submit">Send request</button>
+          </div>
+          <p id="formMsg" class="policy" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="card">
+          <h3>Offices</h3>
+          <p>San Diego, CA · Basel, CH</p>
+          <h3 style="margin-top:18px">Email</h3>
+          <p><a href="mailto:hello@crispace.bio">hello@crispace.bio</a></p>
+          <h3 style="margin-top:18px">Security</h3>
+          <p>Report vulnerabilities to <a href="mailto:security@crispace.bio">security@crispace.bio</a>. PGP available on request.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="foot-logo">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <strong>CriSpace</strong><br>
+            <small>© <span id="year"></span> CriSpace, Inc. All rights reserved.</small>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <p><a href="#solutions">Solutions</a><br><a href="#platform">Platform</a><br><a href="#research">Research</a></p>
+      </div>
+      <div>
+        <h4>Trust</h4>
+        <p><a href="#safety">Safety</a><br><a href="#">Security</a><br><a href="#">Compliance</a></p>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <p><a href="#">Privacy</a><br><a href="#">Terms</a></p>
+        <div class="social" aria-label="Social links">
+          <a href="#" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h4v16H4zM10 9h4v11h-4zM16 9h4v11h-4z" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+          <a href="#" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2C7 2 3 6 3 11c0 4 2.6 7.3 6.2 8.5.4.1.6-.2.6-.4v-2c-2.5.6-3-1.1-3-1.1-.3-.8-.8-1-0.8-1C7 14 8 15 8 15c.7 1.2 1.9.9 2.4.7.1-.5.3-.9.6-1.1-2-.2-4.1-1-4.1-4.6 0-1 .3-1.8.9-2.5-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.6 1a9 9 0 0 1 4.7 0c1.8-1.3 2.6-1 2.6-1 .5 1.3.2 2.3.1 2.5.6.7.9 1.5.9 2.5 0 3.6-2.1 4.4-4.1 4.6.3.3.6.8.6 1.6v2.4c0 .2.2.5.6.4C18.4 18.3 21 15 21 11 21 6 17 2 12 2Z" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+          <a href="#" aria-label="X / Twitter">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20" stroke="currentColor" stroke-width="2"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const btn = document.getElementById('menuBtn');
+    const mobile = document.getElementById('mobileNav');
+    btn?.addEventListener('click', ()=>{
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      mobile.style.display = expanded ? 'none' : 'block';
+    });
+
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(el => { el.classList.remove('active'); el.setAttribute('aria-selected','false'); });
+      t.classList.add('active'); t.setAttribute('aria-selected','true');
+      const id = t.getAttribute('aria-controls');
+      document.querySelectorAll('[role="tabpanel"]').forEach(p => p.hidden = true);
+      document.getElementById(id).hidden = false;
+    }));
+
+    // Contact form (client-side demo only)
+    const form = document.getElementById('contactForm');
+    const msg = document.getElementById('formMsg');
+    form?.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      if(!form.checkValidity()){
+        msg.textContent = 'Please complete all required fields with a valid email.';
+        msg.style.color = getComputedStyle(document.documentElement).getPropertyValue('--danger');
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form).entries());
+      console.log('Contact request', data); // Replace with your API call
+      msg.textContent = 'Thanks! Your request has been received. We\'ll reach out shortly.';
+      msg.style.color = getComputedStyle(document.documentElement).getPropertyValue('--brand-2');
+      form.reset();
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
