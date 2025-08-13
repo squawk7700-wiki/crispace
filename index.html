@@ -6,19 +6,27 @@
   <title>CriSpace — Next‑Gen Editing for Space Survival</title>
   <meta name="description" content="CriSpace explores speculative CRISPR‑inspired editing concepts aimed at adapting organisms for the challenges of outer space environments." />
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background-color: #0b1023; color: #e7ecff; }
-    header, section { padding: 20px; }
-    header { background-color: #101735; position: sticky; top: 0; }
-    .container { max-width: 1000px; margin: auto; }
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #0b1023; color: #e7ecff; line-height: 1.6; }
+    header { background: linear-gradient(90deg, #1d2459, #0b1023); position: sticky; top: 0; padding: 1rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5); z-index: 100; }
+    .container { max-width: 1200px; margin: auto; padding: 0 20px; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
-    nav ul { display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; }
-    nav a { color: #b7c3ff; text-decoration: none; }
+    .brand strong { font-size: 1.5rem; }
+    nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+    nav a { color: #c6d1ff; text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
     nav a:hover { color: #ffffff; }
-    h1, h2, h3 { margin-top: 0; }
-    .eyebrow { color: #b7c3ff; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .card { background-color: #101735; border: 1px solid #26305f; border-radius: 10px; padding: 15px; }
-    .lead { color: #b7c3ff; }
+
+    .hero { padding: 60px 0; background: radial-gradient(circle at center, #1f2a6b, #0b1023); text-align: center; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 20px; }
+    .lead { font-size: 1.1rem; color: #b7c3ff; max-width: 800px; margin: auto; }
+
+    .eyebrow { color: #9aa6ff; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.15em; margin-bottom: 5px; display: block; }
+    section { padding: 50px 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .card { background: #141a3a; border-radius: 12px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
+    h2 { margin-bottom: 20px; font-size: 2rem; }
+    h3 { margin-top: 0; color: #ffffff; }
+    p { color: #d0d6ff; }
   </style>
 </head>
 <body>
@@ -43,7 +51,7 @@
 
   <section class="hero">
     <div class="container">
-      <p class="eyebrow">Next‑Gen Genetic Concepts</p>
+      <span class="eyebrow">Next‑Gen Genetic Concepts</span>
       <h1>Imagining life that could thrive in space</h1>
       <p class="lead">CriSpace speculates on how advanced gene editing ideas—if possible—might help organisms adapt to cosmic radiation, microgravity, and other space hazards. While purely conceptual, these ideas help inspire discussion about biology beyond Earth.</p>
     </div>
@@ -51,7 +59,7 @@
 
   <section id="solutions">
     <div class="container">
-      <p class="eyebrow">Concepts</p>
+      <span class="eyebrow">Concepts</span>
       <h2>From survival to sustainability</h2>
       <div class="grid-3">
         <article class="card">
@@ -72,7 +80,7 @@
 
   <section id="safety">
     <div class="container">
-      <p class="eyebrow">Feasibility</p>
+      <span class="eyebrow">Feasibility</span>
       <h2>Grounded in reality</h2>
       <div class="grid-3">
         <div class="card">
